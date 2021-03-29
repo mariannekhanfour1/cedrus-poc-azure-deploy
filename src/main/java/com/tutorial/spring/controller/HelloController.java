@@ -16,5 +16,6 @@ public class HelloController {
         model.addAttribute("user", name);
         return "hello";
     }
+    //added comment
 
 }
