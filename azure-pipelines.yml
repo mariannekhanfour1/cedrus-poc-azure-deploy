@@ -21,3 +21,11 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'build'
+
+jobs:  
+- deployment: VMDeploy
+  displayName: web
+  environment:
+    name:  spring-app-deployment
+    resourceType: VirtualMachine
+    tags: poc
