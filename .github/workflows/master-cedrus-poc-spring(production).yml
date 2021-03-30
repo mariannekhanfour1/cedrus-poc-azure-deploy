@@ -32,5 +32,5 @@ jobs:
         app-name: cedrus-poc-spring
         slot-name: Production
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2298599E4BE1429088B5A0022D338CFA }}
-        package: ${{ github.workspace }}/build/*.jar
+        package: ${{ github.workspace }}/build/libs/*.jar
 
