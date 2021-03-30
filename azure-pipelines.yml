@@ -28,7 +28,7 @@ stages:
     
     - task: AzureWebApp@1
       inputs:
-        azureSubscription: b9770d71-7ab4-4284-b2ef-6e3ea0a9cda0
+        azureSubscription: 
         appType: webAppLinux
         appName: cedrus-poc-spring2
         package: '$(System.DefaultWorkingDirectory)/build/libs/*.jar'
