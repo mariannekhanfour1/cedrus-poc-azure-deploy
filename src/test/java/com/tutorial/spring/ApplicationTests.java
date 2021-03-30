@@ -3,6 +3,7 @@ package com.tutorial.spring;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
@@ -10,6 +11,10 @@ import java.text.NumberFormat;
 
 @SpringBootTest
 class ApplicationTests {
+
+    @Autowired
+    private BuildProperties buildProperties;
+
     @Autowired
     private ApplicationContext ctx; //manages the beans
 
@@ -28,6 +33,12 @@ class ApplicationTests {
 //        double amount = 123456.675;
 //        System.out.println(nf.format(amount));
 //    }
+
+    @Test
+    void buildversion() {
+        System.out.println("#############################");
+        System.out.println(buildProperties.getVersion());
+    }
 
     @Test
     void germanCurrency() {
