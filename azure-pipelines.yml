@@ -4,28 +4,35 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- master
-
-pool:
-  vmImage: ubuntu-latest
-
-steps:
-- task: Gradle@2
-  inputs:
-    workingDirectory: ''
-    gradleWrapperFile: 'gradlew'
-    gradleOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/TEST-*.xml'
-    tasks: 'build'
-
-jobs:  
-- deployment: VMDeploy
-  displayName: web
-  environment:
-    name:  spring-app-deployment
-    resourceType: VirtualMachine
-    tags: poc
+- master 
+ 
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:  
+  - job: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Gradle@2
+      inputs:
+        workingDirectory: ''
+        gradleWrapperFile: 'gradlew'
+        gradleOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.11'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/TEST-*.xml'
+        tasks: 'build'
+   
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  jobs:
+  - deployment: VMDeploy
+    displayName: web
+    environment:
+      name:  spring-app-deployment
+      resourceType: VirtualMachine
+      tags: poc
