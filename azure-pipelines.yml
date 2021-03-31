@@ -24,7 +24,7 @@ stages:
         jdkArchitectureOption: 'x64'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build'
+        tasks: 'clean build'
     
     - task: AzureWebApp@1
       inputs:
