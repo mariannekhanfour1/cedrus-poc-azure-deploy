@@ -41,7 +41,8 @@ stages:
   - deployment: VMDeploy
     displayName: web
     environment:
-      resourceName:  cedrus-devops-poc
+      name:  spring-app-deploy
       resourceType: VirtualMachine
+      resourceName: cedrus-devops-poc
       # tags: poc #used if we eant to deploy on multiple machine
 
