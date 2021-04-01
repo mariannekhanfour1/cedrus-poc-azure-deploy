@@ -24,8 +24,26 @@ stages:
         jdkArchitectureOption: 'x64'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
-        tasks: 'build'
-   
+        tasks: 'clean build'
+
+    - task: CopyFiles@2
+      displayName: 'Copy Files to artifact staging directory'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: '**/build/libs/*.?(war|jar)'
+        TargetFolder: $(Build.ArtifactStagingDirectory)
+    - upload: $(Build.ArtifactStagingDirectory)
+      artifact: drop
+      
+    # - task: AzureWebApp@1
+    #   inputs:
+    #     azureSubscription: poc_test_connection
+    #     appType: webAppLinux
+    #     appName: cedrus-poc-spring2
+    #     package: '$(System.DefaultWorkingDirectory)/build/libs/*.jar'
+
+
+
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
@@ -35,4 +53,18 @@ stages:
     environment:
       name:  spring-app-deployment
       resourceType: VirtualMachine
-      tags: poc
+      resourceName: cedrus-devops-poc
+      # tags: poc
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                # Modify deployment script based on the app type
+                sudo fuser -k 8080/tcp
+                sudo java -jar '$(Pipeline.Workspace)/drop/build/libs/spring-0.0.1-SNAPSHOT.jar' &
+          # - script: java -jar build/libs/spring-0.0.1-SNAPSHOT.jar
+
