@@ -25,7 +25,16 @@ stages:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         tasks: 'clean build'
-    
+
+    - task: CopyFiles@2
+      displayName: 'Copy Files to artifact staging directory'
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: '**/build/libs/*.?(war|jar)'
+        TargetFolder: $(Build.ArtifactStagingDirectory)
+    - upload: $(Build.ArtifactStagingDirectory)
+      artifact: drop
+      
     # - task: AzureWebApp@1
     #   inputs:
     #     azureSubscription: poc_test_connection
@@ -46,4 +55,9 @@ stages:
       resourceType: VirtualMachine
       resourceName: cedrus-devops-poc
       # tags: poc
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: 
 
