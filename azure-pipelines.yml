@@ -34,6 +34,7 @@ stages:
     #     package: '$(System.DefaultWorkingDirectory)/build/libs/*.jar'
 
 
+
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
@@ -41,8 +42,8 @@ stages:
   - deployment: VMDeploy
     displayName: web
     environment:
-      name:  spring-app-deploy
+      name:  spring-app-deployment
       resourceType: VirtualMachine
       resourceName: cedrus-devops-poc
-      # tags: poc #used if we eant to deploy on multiple machine
+      # tags: poc
 
