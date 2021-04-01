@@ -26,9 +26,22 @@ stages:
         testResultsFiles: '**/TEST-*.xml'
         tasks: 'clean build'
     
-    - task: AzureWebApp@1
-      inputs:
-        azureSubscription: poc_test_connection
-        appType: webAppLinux
-        appName: cedrus-poc-spring2
-        package: '$(System.DefaultWorkingDirectory)/build/libs/*.jar'
+    # - task: AzureWebApp@1
+    #   inputs:
+    #     azureSubscription: poc_test_connection
+    #     appType: webAppLinux
+    #     appName: cedrus-poc-spring2
+    #     package: '$(System.DefaultWorkingDirectory)/build/libs/*.jar'
+
+
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  jobs:
+  - deployment: VMDeploy
+    displayName: web
+    environment:
+      name:  cedrus-devops-poc
+      resourceType: VirtualMachine
+      # tags: poc #used if we eant to deploy on multiple machine
+
