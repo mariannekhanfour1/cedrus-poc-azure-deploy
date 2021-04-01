@@ -65,6 +65,7 @@ stages:
               script: |
                 # Modify deployment script based on the app type
                 echo "Starting deployment script run"
-                sudo java -jar '$(Pipeline.Workspace)/drop/**/build/libs/*.jar'
+                sudo java -jar '$(Pipeline.Workspace)/drop/build/libs/spring-0.0.1-SNAPSHOT.jar
+'
           # - script: java -jar build/libs/spring-0.0.1-SNAPSHOT.jar
 
