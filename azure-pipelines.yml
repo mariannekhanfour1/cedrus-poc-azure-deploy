@@ -53,7 +53,7 @@ stages:
     environment:
       name:  spring-app-deployment
       resourceType: VirtualMachine
-      resourceName: cedrus-devops-poc
+      resourceName: alaska-poc-vm
       # tags: poc
     strategy:
       runOnce:
