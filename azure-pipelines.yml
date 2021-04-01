@@ -59,5 +59,12 @@ stages:
       runOnce:
         deploy:
           steps:
-          - script: java -jar build/libs/spring-0.0.1-SNAPSHOT.jar
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                # Modify deployment script based on the app type
+                echo "Starting deployment script run"
+                sudo java -jar '$(Pipeline.Workspace)/drop/**/build/libs/*.jar'
+          # - script: java -jar build/libs/spring-0.0.1-SNAPSHOT.jar
 
