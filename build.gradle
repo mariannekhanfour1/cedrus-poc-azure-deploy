@@ -36,6 +36,7 @@ dependencies {
 	}
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.json:json:20171018'
 //	// https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf
 //	implementation group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.11.RELEASE'
 
