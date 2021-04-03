@@ -23,12 +23,13 @@ public class HelloRestController {
     @CrossOrigin
     @PostMapping(path = "/eligibility", consumes = "application/json", produces = "application/json")
     public boolean shouldGetFoodStamp(@RequestBody Person person) {
-        RestClient.checkRule();
+        boolean answer = (boolean) RestClient.checkRule(person);
         System.out.print(person.getAge() + person.getIncome());
-        if(person.getIncome() >= 1000) {
-            return false;
-        } else {
-            return true;
-        }
+        return answer;
+        // if(person.getIncome() >= 1000) {
+        //     return false;
+        // } else {
+        //     return true;
+        // }
     }
 }
